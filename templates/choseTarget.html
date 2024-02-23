@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>予測したいデータを選択してください</h1>
+    <table>
+        <tr>
+            {% for title in columns %}
+                <th>{{title}}</th>
+            {% endfor %}
+        </tr>
+        
+        {% for columnData in data[:10] %}
+            <tr>
+                {% for d in columnData %}
+                    <td>{{d}}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        
+    </table>
+</body>
+</html>
