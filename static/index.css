@@ -1,0 +1,26 @@
+﻿body {
+}
+
+.page_title {
+  color: #7ea9ea;
+}
+
+.btn_04 {
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  width: 120px;
+  margin: auto;
+  padding: 1rem 4rem;
+  font-weight: bold;
+  border: 2px solid #27acd9;
+  background: #27acd9;
+  color: #fff;
+  border-radius: 100vh;
+  transition: 0.5s;
+}
+.btn_04:hover {
+  color: #27acd9;
+  background: #fff;
+}
