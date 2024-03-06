@@ -1,0 +1,51 @@
+.body {
+  display: flex; /* Flexboxを使って要素を横に並べる */
+  align-items: center; /* アイコンとテキストを垂直方向の中央に揃える */
+  margin-top: 100px; /* 上からのマージンを設定 */
+}
+.hello {
+  color: black;
+  font-size: 86px;
+  margin-right: 0 auto;
+  padding-left: 80px;
+}
+.bi-journal-text {
+  fill: currentColor; /* SVGアイコンの色をテキスト色と同じにする */
+  vertical-align: middle; /* アイコンをテキストの中央に合わせる */
+  margin-right: auto; /* テキストとの間隔 */
+}
+.btn_04 {
+  position: fixed; /* 位置を固定 */
+  bottom: 20px; /* 下から20pxの位置に */
+  right: 20px; /* 右から20pxの位置に */
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  width: 250px;
+  padding: 1rem 4rem;
+  font-weight: bold;
+  border: 2px solid #7ea9ea;
+  background: #7ea9ea;
+  color: #fff;
+  border-radius: 100vh;
+  transition: 0.5s;
+}
+
+.btn_03 {
+  position: fixed;
+  bottom: 20px; /* 下から20pxの位置に */
+  left: 20px; /* 左から20pxの位置に */
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  width: 250px;
+  padding: 1rem 4rem;
+  font-weight: bold;
+  border: 2px solid #bbbbbb;
+  background: #bbbbbb;
+  color: #fff;
+  border-radius: 100vh;
+  transition: 0.5s;
+}
