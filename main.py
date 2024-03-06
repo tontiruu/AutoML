@@ -58,9 +58,6 @@ def choseTarget(id):
         pass
 
      
-@app.route('/info',methods=['GET'])
-def info():
-    return render_template('info.html')
 
 
 if __name__ == '__main__':
