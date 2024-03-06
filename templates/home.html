@@ -1,13 +1,16 @@
 {% extends "base.html"%}
 {% block content %}
-    <h1>分析したいCSVファイルをアップロードしてください</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
-      <input type="file" accept=".csv" name="CSVfile" />
-      <br />
-      <button type="submit">アップロード</button>
-
-      <input type="file" accept=".csv" name="CSVfile" />
-        <div class="flex items-center justify-center w-full">
+    <form action="" method="POST" enctype="multipart/form-data" id="file-form"
+    style="
+    width:70%;
+    height: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px; 
+    text-align: center;
+    color:#292929;">
+        <h3>訓練データを入れてください</h3>
+        <div class="flex items-center justify-center w-full" style="margin-top: 30px; height: 100%;">
         <label
           for="dropzone-file"
           class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
@@ -33,7 +36,7 @@
               />
             </svg>
           </div>
-          <input id="dropzone-file" type="file" class="hidden" />
+          <input id="dropzone-file" type="file" class="hidden" accept=".csv" name="CSVfile"/>
         </label>
 
       </div>
@@ -43,6 +46,15 @@
             </svg>
         </div>
     </form>
+    <script>
+      document.getElementById("dropzone-file").addEventListener("change", function() {
+          document.getElementById("file-form").submit();
+      });
+      document.getElementById("dropzone-file").addEventListener("click", function() {
+        var file = document.getElementById("dropzone-file");
+        file.value = "";
+      });
+  </script>
   </body>
 </html>
 
