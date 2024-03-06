@@ -1,5 +1,6 @@
 {% extends "base.html"%}
 {% block content %}
+<link rel="stylesheet" href="../static/choseTarget.css">
 <form action="" method="POST" enctype="multipart/form-data" id="file-form"
 style="
 width:70%;
@@ -30,6 +31,11 @@ color:#292929;">
         カラムの選択をしてください
       </h3>
 
+      <form>
+      <div class="box">
+        <div class="content">
+
+      
       {% for title in columns %}
       <ul
         class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -56,9 +62,18 @@ color:#292929;">
       </ul>
       {% endfor %}
 
-    </table>
+    </div>
+  </div>
+</table>
 
 
+      <div class="btn_04">
+        <button type="submit">
+          データを決定する  
+        </button>
+      </div>
+
+      </form>
 
     <div class="info_mark">
       <svg 
