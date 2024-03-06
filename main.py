@@ -55,9 +55,10 @@ def choseTarget(id):
             data.append(list(df.iloc[i]))
         return render_template("choseTarget.html",columns=columns,data=data)
     else:
-        pass
+        checkedItem = request.form.getlist("checkbox")
+        print(checkedItem)
+        
 
-     
 
 
 if __name__ == '__main__':
