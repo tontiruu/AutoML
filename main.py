@@ -4,7 +4,7 @@ from modules import createID
 import time
 
 
-app = Flask(__name__,static_folder="static")
+app = Flask(__name__,static_folder="./static")
 
 
 
