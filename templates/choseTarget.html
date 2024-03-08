@@ -1,5 +1,6 @@
 {% extends "base.html"%}
 {% block content %}
+<link rel="stylesheet" href="../static/choseTarget.css">
 <form action="" method="POST" enctype="multipart/form-data" id="file-form"
 style="
 width:70%;
@@ -29,6 +30,13 @@ color:#292929;">
       <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
         カラムの選択をしてください
       </h3>
+
+      <form>
+      <div class="box">
+        <div class="content">
+
+      
+      {% for title in columns %}
       <ul
         class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
       >
@@ -41,67 +49,47 @@ color:#292929;">
               type="checkbox"
               value=""
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-            />
+              name="checkbox"
+              />
             <label
               for="vue-checkbox"
               class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >Vue JS</label
+              >{{title}}</label
             >
           </div>
         </li>
-        <li
-          class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600"
-        >
-          <div class="flex items-center ps-3">
-            <input
-              id="react-checkbox"
-              type="checkbox"
-              value=""
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-            />
-            <label
-              for="react-checkbox"
-              class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >React</label
-            >
-          </div>
-        </li>
-        <li
-          class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600"
-        >
-          <div class="flex items-center ps-3">
-            <input
-              id="angular-checkbox"
-              type="checkbox"
-              value=""
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-            />
-            <label
-              for="angular-checkbox"
-              class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >Angular</label
-            >
-          </div>
-        </li>
-        <li
-          class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600"
-        >
-          <div class="flex items-center ps-3">
-            <input
-              id="laravel-checkbox"
-              type="checkbox"
-              value=""
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-            />
-            <label
-              for="laravel-checkbox"
-              class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >Laravel</label
-            >
-          </div>
-        </li>
+ 
       </ul>
-    </table>
+      {% endfor %}
+
+    </div>
+  </div>
+</table>
+
+
+      <div class="btn_04">
+        <button type="submit">
+          データを決定する  
+        </button>
+      </div>
+
+      </form>
+
+    <div class="info_mark">
+      <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="28" 
+          height="28" 
+          fill="#B2D1FF" 
+          class="bi bi-info-circle-fill" 
+          viewBox="0 0 16 16" 
+          style="position: fixed; bottom: 0; right: 0;"
+      >
+          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
+      </svg>
+  </div>
+
+
   </body>
 </html>
 

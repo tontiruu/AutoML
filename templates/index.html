@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/index.css" />
-    <title>Document</title>
-  </head>
+{% extends "base.html"%}
+{% block content %}
+<form action="" method="POST" enctype="multipart/form-data" id="file-form"
+style="
+width:70%;
+height: 90%;
+margin-left: auto;
+margin-right: auto;
+margin-top: 100px; 
+text-align: center;
+color:#292929;">
+
   <body>
     <div class="page_title">
       <h1>AutoMLツールです</h1>
@@ -13,3 +17,6 @@
     <a href="{{id}}/home" class="btn_04">使ってみる</a>
   </body>
 </html>
+
+{% endblock %}
+
