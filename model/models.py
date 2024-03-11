@@ -25,7 +25,6 @@ class model_lightgbm:
                 le=LabelEncoder()
                 df[colum]=le.fit_transform(df[colum])
 
-        print(df)
         y = df[target]
         x = df.drop([target], axis=1)
 
@@ -59,13 +58,11 @@ class model_lightgbm:
         
         #モデルの予測
         y_pred = self.model.predict(x_test)
-        print(y_pred)
 
         self.accuracy = metrics.accuracy_score(y_test,np.where(y_pred > 0.5,1,0))
 
         #モデルの精度
         # accuracy = metrics.accuracy_score(y_test, y_pred) #予測値の精度を表す
-        print(self.accuracy)
     
     def predict(self,pred_df):
 
@@ -79,9 +76,6 @@ class model_lightgbm:
 
 
 
-df=pd.read_csv("./templates/Data.csv")
-print(df)
 
-model_lightgbm("C","Target",df)
 
 

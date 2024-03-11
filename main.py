@@ -2,7 +2,7 @@ from flask import Flask,render_template,redirect,request,url_for,session
 import pandas as pd
 from modules import createID
 import time
-from model import model_lightgbm
+from model.models import model_lightgbm
 
 app = Flask(__name__,static_folder="./static")
 
@@ -57,10 +57,9 @@ def choseTarget(id):
     else:
         checkedItem = request.form.getlist("checkbox")
         df = df[checkedItem]
-
-        model_lightgbm.learning(analytic_type="C",target="",df = df)
-        accuracy = model_lightgbm.accuracay
-        print(accuracy)
+        LGBM = model_lightgbm()
+        LGBM.learning(analytic_type="C",target="Target",df = df)
+        accuracy = LGBM.accuracy
         return render_template("score.html",accuracy = accuracy)
 
         
