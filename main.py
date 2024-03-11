@@ -56,7 +56,8 @@ def choseTarget(id):
         return render_template("choseTarget.html",columns=columns,data=data)
     else:
         checkedItem = request.form.getlist("checkbox")
-        print(checkedItem)
+        df.df[checkedItem]
+        print(df)
         
 
 
