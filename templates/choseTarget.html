@@ -11,7 +11,20 @@ margin-top: 100px;
 text-align: center;
 color:#292929;">
 
-    <h1>予測したいデータを選択してください</h1>
+    
+
+    <h1>データを選択してください</h1>
+
+    <h3>目的変数を選択してください</h3>
+    <select name=”item”>
+      {% for title in columns %}
+    <option value=”item1”>{{title}}</option>
+    {% endfor %}
+    </select>
+
+
+
+    <div class="scroll"> 
     <table>
       <tr>
         {% for title in columns %}
@@ -26,6 +39,11 @@ color:#292929;">
         {% endfor %}
       </tr>
       {% endfor %}
+
+      </div>
+
+
+
 
       <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
         カラムの選択をしてください
