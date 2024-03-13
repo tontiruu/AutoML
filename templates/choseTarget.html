@@ -11,14 +11,14 @@ margin-top: 100px;
 text-align: center;
 color:#292929;">
 
-    
+
 
     <h1>データを選択してください</h1>
 
     <h3>目的変数を選択してください</h3>
-    <select name=”item”>
+    <select name="item">
       {% for title in columns %}
-    <option value=”item1”>{{title}}</option>
+    <option value="item1">{{title}}</option>
     {% endfor %}
     </select>
 
@@ -84,9 +84,8 @@ color:#292929;">
   </div>
 </table>
 
-
       <div class="btn_04">
-        <button type="submit">
+        <button type="button" onclick="return false;">
           データを決定する  
         </button>
       </div>
@@ -106,7 +105,18 @@ color:#292929;">
           <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
       </svg>
   </div>
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // ボタンを選択する
+      var button = document.querySelector('.btn_04 button[type="submit"]');
+      
+      // ボタンがクリックされた時の処理
+      button.addEventListener('click', function() {
+        // loading.htmlに遷移する
+        window.location.href = '/loading.html';
+      });
+    });
+  </script>
 
   </body>
 </html>

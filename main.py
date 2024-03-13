@@ -55,6 +55,7 @@ def choseTarget(id):
             data.append(list(df.iloc[i]))
         return render_template("choseTarget.html",columns=columns,data=data)
     else:
+        time.sleep(5)
         checkedItem = request.form.getlist("checkbox")
         df = df[checkedItem]
         LGBM = model_lightgbm()
