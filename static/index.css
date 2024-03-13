@@ -2,9 +2,11 @@
 }
 .sentence {
   color: #292929;
+  text-align: left;
 }
 .page_title {
   color: #292929;
+  text-align: left;
 }
 
 .btn_04 {
@@ -12,18 +14,17 @@
   text-align: center;
   vertical-align: middle;
   text-decoration: none;
-  width: 300px;
-  height: 70;
+  width: 350px;
+  height: 75px;
+  font-size: 25px;
   margin: auto;
   padding: 1rem 4rem;
   font-weight: bold;
   border: 2px solid #7ea9ea;
   background: #7ea9ea;
   color: #fff;
-  font-size: 25px;
   border-radius: 100vh;
   transition: 0.5s;
-  display: flex;
 }
 .btn_04:hover {
   color: #7ea9ea;
