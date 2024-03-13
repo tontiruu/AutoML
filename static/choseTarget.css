@@ -45,17 +45,14 @@
 }
 
 .next-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  cursor: pointer;
-  z-index: 9999; /* 最前面に配置 */
+  position: fixed; /* 位置を固定 */
+  bottom: 20px; /* 下から20pxの位置に */
+  right: 20px; /* 右から20pxの位置に */
   display: block;
   text-align: center;
   vertical-align: middle;
   text-decoration: none;
-  width: 500px;
-  margin: auto;
+  width: 250px;
   padding: 1rem 4rem;
   font-weight: bold;
   border: 2px solid #7ea9ea;
@@ -68,18 +65,4 @@
 .next-button:hover {
   color: #7ea9ea;
   background: #fff;
-}
-@media (max-width: 768px) {
-  .next-button {
-    position: fixed;
-    bottom: 20px;
-    right: calc(100% - 60px); /* 画面の右端からの位置 */
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    z-index: 9999;
-  }
 }
