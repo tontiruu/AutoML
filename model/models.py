@@ -60,9 +60,21 @@ class model_lightgbm:
         #モデルの予測
         y_pred = self.model.predict(x_test)
         self.accuracy = metrics.accuracy_score(y_test,np.where(y_pred > 0.5,1,0))
-        self.imp = list(self.model.feature_importance())
-        self.imp = list(map(lambda x: round(x/sum(self.imp) * 100),self.imp))
-        self.columns = list(x.columns)
+        
+        imp = list(self.model.feature_importance())
+        imp = list(map(lambda x: round(x/sum(imp) * 100),imp))
+        columns = list(x.columns)
+        data = []
+        for i,c in zip(imp,columns):
+            data.append([i,c])
+        data = sorted(data,reverse=True)
+
+        self.imp = []
+        self.columns = []
+        for d in data:
+            self.imp.append(d[0])
+            self.columns.append(d[1])
+            
 
 
         #モデルの精度

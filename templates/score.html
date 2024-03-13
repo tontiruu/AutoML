@@ -1,56 +1,56 @@
 {% extends "base.html"%}
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1"></script>
-<script>
-    window.onload = function () {
-    let pie_context = document.querySelector("#pie_chart").getContext('2d')
-    let accuracy = {{ accuracy | tojson }};
-    new Chart(context, {
-        type: 'doughnut',
-        data: {
-        labels: ["正解","不正解"],
-        datasets: [{
-            backgroundColor: ["#B2D1FF","#BBBBBB"],
-            data: [accuracy*100,(1-accuracy)*100]
-        }]
-        },
-        options: {
-        responsive: false,
-        }
-    });
-    }
-</script>
-<script>
-    window.onload = function () {
-      let context = document.querySelector("#japanese_people_chart").getContext('2d')
-      new Chart(context, {
-        type: 'bar',
-        data: {
-          labels: ['2015年', '2016年', '2017年', '2018年', '2019年', '2020年'],
-          datasets: [{
-            label: "日本の人口推移",
-            data: [127094745, 127041812, 126918546, 126748506, 126555078, 126146099],
-          }],
-        },
-        options: {
-          responsive: false
-        }
-      })
-    }
-  </script>
+<link rel="stylesheet" href="../static/score.css">
+<div style="display: flex; margin-top: 100px; margin-left: 30px;">
+    <div>
+        <h3>精度</h3>
+        <h3 style="margin-left: 50px;">{{accpct}}%</h3>
+        <canvas id="pie_chart" width="400" height="320"></canvas>
+        <script>
+            let context = document.querySelector("#pie_chart").getContext('2d')
+            let accuracy = {{ accuracy | tojson }};
+            new Chart(context, {
+                type: 'doughnut',
+                data: {
+                labels: ["正解","不正解"],
+                datasets: [{
+                    backgroundColor: ["#B2D1FF","#BBBBBB"],
+                    data: [accuracy*100,(1-accuracy)*100]
+                }]
+                },
+                options: {
+                responsive: false,
+                }
+            });
+        </script>
+    </div>
 
-
-
-<div style="margin-top: 100px; margin-left: 30px; display: inline;">
-    <h3>精度</h3>
-    <h3 style="margin-left: 50px;">{{accpct}}%</h3>
-    <canvas id="pie_chart" width="400" height="400"></canvas>
+    <div style="margin-left: 100px; margin-top: 70px;">
+        <canvas id="japanese_people_chart" width="600" height="360"></canvas>
+        <script>
+            let context2 = document.querySelector("#japanese_people_chart").getContext('2d')
+            let imp = {{ imp | tojson }};
+            let columns = {{columns | tojson}};
+            new Chart(context2, {
+                type: 'bar',
+                data: {
+                labels: columns,
+                datasets: [{
+                    backgroundColor: "#7EA9EA",
+                    label: "重要度",
+                    data: imp,
+                }],
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: false
+                }
+            })
+        </script>
+    </div>
 </div>
 
-<div style="display: inline;">
-    <canvas id="japanese_people_chart" width="500" height="500"></canvas>
-    
-</div>
-
+<a href="/{{id}}/uploadTest" class="btn">このモデルで予測する</a>
 {% endblock %}
 
