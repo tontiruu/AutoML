@@ -25,10 +25,12 @@ color:#292929;">
     });
 </script>
     
-<cnter>
+
     <h1>使用する列の選択</h1>
 
     <center>
+      <div class="flex">
+      <div>
       <h5>データのプレビュー</h5>
 
       <div class="preview">
@@ -53,6 +55,7 @@ color:#292929;">
           </table>
         </div>
       </div>
+    </div>
     <div class="scroll"> 
     {% for title in columns %}
     <ul
@@ -76,15 +79,15 @@ color:#292929;">
           >
         </div>
       </li>
-
     </ul>
-    {% endfor %}</div></center>
+    {% endfor %}</div>
+  </div></center>
     <div class="btn_04">
         <button type="submit">
           データを決定する  
         </button>
       </div>
-</cnter>
+
 
   </body>
 </html>
