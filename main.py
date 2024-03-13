@@ -12,6 +12,9 @@ dataDict = {}
 # key:id
 # value:[timestamp,df]
 
+accDict = {}
+#key:id
+#value:[timestamp,df]
 
 allowedID = set([])
 
@@ -60,9 +63,19 @@ def choseTarget(id):
         LGBM = model_lightgbm()
         LGBM.learning(analytic_type="C",target="Target",df = df)
         accuracy = LGBM.accuracy
-        return render_template("score.html",accuracy = accuracy)
+        accDict[id] = [time.time(),accuracy]
+        print(accuracy)
+        return redirect(f"/{id}/score")
 
-        
+
+@app.route("/<string:id>/score",methods=["GET","POST"])
+def score(id):
+    if id not in allowedID:
+        return redirect("/")
+    if request.method == "GET":
+        return render_template("score.html",accuracy = accDict[id][1])
+    else:
+        pass
 
 
 

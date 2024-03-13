@@ -1,1 +1,26 @@
-{%}
+{% extends "base.html"%}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1"></script>
+<script>
+    window.onload = function () {
+    let context = document.querySelector("#sushi_circle").getContext('2d')
+    let accuracy = {{ accuracy | tojson }};
+    alert(accuracy)
+    new Chart(context, {
+        type: 'doughnut',
+        data: {
+        labels: ["正解","不正解"],
+        datasets: [{
+            data: [accuracy*100,(1-accuracy)*100]
+        }]
+        },
+        options: {
+        responsive: false,
+        }
+    });
+    }
+</script>
+<canvas id="sushi_circle" width="500" height="500"></canvas>
+
+{% endblock %}
+
