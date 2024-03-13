@@ -64,6 +64,8 @@ def choseTarget(id):
         LGBM = model_lightgbm()
         LGBM.learning(analytic_type="C",target="Target",df = df)
         accuracy = LGBM.accuracy
+        print(LGBM.imp)
+        print(LGBM.columns)
         accDict[id] = [time.time(),accuracy]
         print(accuracy)
         return redirect(f"/{id}/score")

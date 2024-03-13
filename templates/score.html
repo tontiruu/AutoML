@@ -3,9 +3,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1"></script>
 <script>
     window.onload = function () {
-    let context = document.querySelector("#sushi_circle").getContext('2d')
+    let pie_context = document.querySelector("#pie_chart").getContext('2d')
     let accuracy = {{ accuracy | tojson }};
-    alert(accuracy)
     new Chart(context, {
         type: 'doughnut',
         data: {
@@ -21,11 +20,36 @@
     });
     }
 </script>
+<script>
+    window.onload = function () {
+      let context = document.querySelector("#japanese_people_chart").getContext('2d')
+      new Chart(context, {
+        type: 'bar',
+        data: {
+          labels: ['2015年', '2016年', '2017年', '2018年', '2019年', '2020年'],
+          datasets: [{
+            label: "日本の人口推移",
+            data: [127094745, 127041812, 126918546, 126748506, 126555078, 126146099],
+          }],
+        },
+        options: {
+          responsive: false
+        }
+      })
+    }
+  </script>
 
-<div style="margin-top: 100px; margin-left: 30px;">
+
+
+<div style="margin-top: 100px; margin-left: 30px; display: inline;">
     <h3>精度</h3>
     <h3 style="margin-left: 50px;">{{accpct}}%</h3>
-    <canvas id="sushi_circle" width="400" height="400"></canvas>
+    <canvas id="pie_chart" width="400" height="400"></canvas>
+</div>
+
+<div style="display: inline;">
+    <canvas id="japanese_people_chart" width="500" height="500"></canvas>
+    
 </div>
 
 {% endblock %}
