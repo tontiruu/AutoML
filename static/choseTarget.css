@@ -31,9 +31,16 @@
 }
 
 .scroll {
-  width: 600px;
-  height: 300px;
-  background-color: white !important;
-  overflow: scroll;
+  width: 80%; /* 画面幅の80% */
+  max-width: 800px; /* 最大幅を指定 */
+  height: 80vh; /* 画面の高さの80% */
+  max-height: 600px; /* 最大高さを指定 */
+  background-color: whitesmoke;
+  overflow: auto; /* スクロールが必要な場合に表示 */
   border: black 1px solid;
+  margin: 10vh auto; /* 上下中央に配置 */
+}
+
+.preview {
+  text-align: center; /* テーブルを中央に配置 */
 }
