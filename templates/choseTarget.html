@@ -16,9 +16,9 @@ color:#292929;">
     <h1>データを選択してください</h1>
 
     <h3>目的変数を選択してください</h3>
-    <select name=”item”>
+    <select name="item">
       {% for title in columns %}
-    <option value=”item1”>{{title}}</option>
+    <option value="item1">{{title}}</option>
     {% endfor %}
     </select>
 
@@ -78,6 +78,7 @@ color:#292929;">
         </li>
  
       </ul>
+      </div>
       {% endfor %}
 
     </div>
@@ -85,12 +86,12 @@ color:#292929;">
 </table>
 
 
-      <div class="btn_04">
+      <div id="loading_Form" class="btn_04" action="/your_flask_endpoint" method="post">
+        <!--<input name="exampleInput" required>-->
         <button type="submit">
           データを決定する  
         </button>
       </div>
-
       </form>
 
     <div class="info_mark">
