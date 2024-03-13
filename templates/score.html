@@ -11,6 +11,7 @@
         data: {
         labels: ["正解","不正解"],
         datasets: [{
+            backgroundColor: ["#B2D1FF","#BBBBBB"],
             data: [accuracy*100,(1-accuracy)*100]
         }]
         },
@@ -20,7 +21,12 @@
     });
     }
 </script>
-<canvas id="sushi_circle" width="500" height="500"></canvas>
+
+<div style="margin-top: 100px; margin-left: 30px;">
+    <h3>精度</h3>
+    <h3 style="margin-left: 50px;">{{accpct}}%</h3>
+    <canvas id="sushi_circle" width="400" height="400"></canvas>
+</div>
 
 {% endblock %}
 

@@ -3,6 +3,7 @@ import pandas as pd
 from modules import createID
 import time
 from model.models import model_lightgbm
+import math
 
 app = Flask(__name__,static_folder="./static")
 
@@ -73,7 +74,7 @@ def score(id):
     if id not in allowedID:
         return redirect("/")
     if request.method == "GET":
-        return render_template("score.html",accuracy = accDict[id][1])
+        return render_template("score.html",accuracy = accDict[id][1], accpct = math.floor(accDict[id][1]*100))
     else:
         pass
 
