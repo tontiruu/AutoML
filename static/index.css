@@ -1,6 +1,8 @@
 ﻿body {
 }
-
+.sentence {
+  color: #292929;
+}
 .page_title {
   color: #292929;
 }
@@ -21,6 +23,7 @@
   font-size: 25px;
   border-radius: 100vh;
   transition: 0.5s;
+  display: flex;
 }
 .btn_04:hover {
   color: #7ea9ea;
