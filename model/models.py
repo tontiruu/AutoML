@@ -56,10 +56,26 @@ class model_lightgbm:
             valid_sets=lgb_eval, # 検証データの指定
                     )
         
+        
         #モデルの予測
         y_pred = self.model.predict(x_test)
-
         self.accuracy = metrics.accuracy_score(y_test,np.where(y_pred > 0.5,1,0))
+        
+        imp = list(self.model.feature_importance())
+        imp = list(map(lambda x: round(x/sum(imp) * 100),imp))
+        columns = list(x.columns)
+        data = []
+        for i,c in zip(imp,columns):
+            data.append([i,c])
+        data = sorted(data,reverse=True)
+
+        self.imp = []
+        self.columns = []
+        for d in data:
+            self.imp.append(d[0])
+            self.columns.append(d[1])
+            
+
 
         #モデルの精度
         # accuracy = metrics.accuracy_score(y_test, y_pred) #予測値の精度を表す

@@ -3,6 +3,8 @@ import pandas as pd
 from modules import createID
 import time
 from model.models import model_lightgbm
+import math
+
 
 app = Flask(__name__,static_folder="./static")
 
@@ -12,6 +14,13 @@ dataDict = {}
 # key:id
 # value:[timestamp,df]
 
+accDict = {}
+#key:id
+#value:[timestamp,df]
+
+impDict = {}
+#key:id
+#value:[timestamp,imp,x_columns]
 
 allowedID = set([])
 
@@ -37,7 +46,7 @@ def home(id):
         print(request.files)
         file = request.files["CSVfile"]
         #'.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-        print(file)
+        
         df = pd.read_csv(file)
         dataDict[id] = [time.time(),df]
         return redirect(f"/{id}/choseTarget")
@@ -60,9 +69,19 @@ def choseTarget(id):
         LGBM = model_lightgbm()
         LGBM.learning(analytic_type="C",target="Target",df = df)
         accuracy = LGBM.accuracy
-        return render_template("score.html",accuracy = accuracy)
+        accDict[id] = [time.time(),accuracy]
+        impDict[id] = [time.time(),LGBM.imp,LGBM.columns]
+        return redirect(f"/{id}/score")
 
-        
+
+@app.route("/<string:id>/score",methods=["GET","POST"])
+def score(id):
+    if id not in allowedID:
+        return redirect("/")
+    if request.method == "GET":
+        return render_template("score.html",accuracy = accDict[id][1], accpct = math.floor(accDict[id][1]*100),imp=impDict[id][1],columns = impDict[id][2])
+    else:
+        pass
 
 
 
