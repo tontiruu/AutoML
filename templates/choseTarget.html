@@ -24,8 +24,22 @@ color:#292929;">
 
 
 
-    <div class="scroll"> 
+    <h3>分析の種類を選択してください:</h3>
+
+    <select name="selection" id="select">
+      <option value="">--選択してください--</option>
+      <option value="回帰">回帰</option>
+      <option value="分類">分類</option>
+    </select>
+    
+
+
+    <h5>データのプレビュー</h5>
+
+<div class="preview">
+  <div class="scroll">
     <table>
+      
       <tr>
         {% for title in columns %}
         <th>{{title}}</th>
@@ -39,60 +53,20 @@ color:#292929;">
         {% endfor %}
       </tr>
       {% endfor %}
+    
 
-      </div>
+    </table>
+  </div>
+</div>
+
+     
+<button class="next-button">次へ</button>
 
 
 
 
-      <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
-        カラムの選択をしてください
-      </h3>
-
-      <form>
-      <div class="box">
-        <div class="content">
 
       
-      {% for title in columns %}
-      <ul
-        class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-      >
-        <li
-          class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600"
-        >
-          <div class="flex items-center ps-3">
-            <input
-              id="vue-checkbox"
-              type="checkbox"
-              value={{title}}
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              name="checkbox"
-              />
-            <label
-              for="vue-checkbox"
-              class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >{{title}}</label
-            >
-          </div>
-        </li>
- 
-      </ul>
-      {% endfor %}
-
-    </div>
-  </div>
-</table>
-
-
-      <div class="btn_04">
-        <button type="submit">
-          データを決定する  
-        </button>
-      </div>
-
-      </form>
-
     <div class="info_mark">
       <svg 
           xmlns="http://www.w3.org/2000/svg" 
