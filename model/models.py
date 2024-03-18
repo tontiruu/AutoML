@@ -11,10 +11,6 @@ class model_lightgbm:
         #CはClassificationの略
         self.analytic_type=analytic_type
         self.target=target
-        if analytic_type == "C":
-            model = lgb.LGBMClassifier()
-        else:
-            model = lgb.LGBMRegressor()
 
     
         #文字データの判定
@@ -40,8 +36,9 @@ class model_lightgbm:
         params = {
             'task': 'train',
             'boosting_type': 'gbdt',
-            'objective': 'binary', # 目的 : 分類
-            'metric': {'auc'},
+            'objective': 'multiclass', # binaly:二値分類, multiclass:多クラス分類
+            "num_class":len(set(y)),
+            'metric': {'auc_mu'},
             'num_leaves': 20,
             'max_depth':5,
             'min_data_in_leaf': 3,
@@ -59,7 +56,11 @@ class model_lightgbm:
         
         #モデルの予測
         y_pred = self.model.predict(x_test)
-        self.accuracy = metrics.accuracy_score(y_test,np.where(y_pred > 0.5,1,0))
+        #そのクラスに属する確率が返ってくるから、最も高い確率のクラスに加工する
+        y_pred = np.argmax(y_pred,axis=1)
+        print(f"y_pred:{list(y_pred)[:30]}")
+        print(f"y_test:{list(y_test)[:30]}")
+        self.accuracy = metrics.accuracy_score(y_test,y_pred )
         
         imp = list(self.model.feature_importance())
         imp = list(map(lambda x: round(x/sum(imp) * 100),imp))

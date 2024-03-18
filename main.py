@@ -9,7 +9,6 @@ import math
 app = Flask(__name__,static_folder="./static")
 
 
-
 dataDict = {}
 # key:id
 # value:[timestamp,df]
@@ -64,10 +63,18 @@ def choseTarget(id):
             data.append(list(df.iloc[i]))
         return render_template("choseTarget.html",columns=columns,data=data)
     else:
-        checkedItem = request.form.getlist("checkbox")
-        df = df[checkedItem]
+        #checkedItem = request.form.getlist("checkbox")
+        #df = df[checkedItem]
+        print(request.form)
+        target = request.form["item"]
+        analyticType = request.form["selection"]
+        if analyticType == "分類":
+            analyticType = "C"
+        else:
+            analyticType = "L"
+
         LGBM = model_lightgbm()
-        LGBM.learning(analytic_type="C",target="Target",df = df)
+        LGBM.learning(analytic_type="C",target=target,df = df)
         accuracy = LGBM.accuracy
         accDict[id] = [time.time(),accuracy]
         impDict[id] = [time.time(),LGBM.imp,LGBM.columns]
@@ -86,4 +93,4 @@ def score(id):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

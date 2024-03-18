@@ -16,9 +16,9 @@ color:#292929;">
     <h1>データを選択してください</h1>
 
     <h3>目的変数を選択してください</h3>
-    <select name=”item”>
+    <select name="item">
       {% for title in columns %}
-    <option value=”item1”>{{title}}</option>
+    <option value={{title}}>{{title}}</option>
     {% endfor %}
     </select>
 
