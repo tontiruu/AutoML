@@ -1,4 +1,4 @@
-from flask import Flask,render_template,redirect,request,url_for,session
+from flask import Flask,render_template,redirect,request,url_for,session,make_response
 import pandas as pd
 from modules import createID
 import time
@@ -13,11 +13,7 @@ dataDict = {}
 # key:id
 # value:[timestamp,df]
 
-accDict = {}
-#key:id
-#value:[timestamp,df]
-
-impDict = {}
+modelDict = {}
 #key:id
 #value:[timestamp,imp,x_columns]
 
@@ -75,9 +71,7 @@ def choseTarget(id):
 
         LGBM = model_lightgbm()
         LGBM.learning(analytic_type="C",target=target,df = df)
-        accuracy = LGBM.accuracy
-        accDict[id] = [time.time(),accuracy]
-        impDict[id] = [time.time(),LGBM.imp,LGBM.columns]
+        modelDict[id] = [time.time(),LGBM]
         return redirect(f"/{id}/score")
 
 
@@ -86,9 +80,36 @@ def score(id):
     if id not in allowedID:
         return redirect("/")
     if request.method == "GET":
-        return render_template("score.html",accuracy = accDict[id][1], accpct = math.floor(accDict[id][1]*100),imp=impDict[id][1],columns = impDict[id][2])
+        LGBM = modelDict[id][1]
+        return render_template("score.html",accuracy = LGBM.accuracy, accpct = math.floor(LGBM.accuracy*100),imp=LGBM.imp,columns = LGBM.columns)
     else:
         pass
+
+
+
+@app.route("/<string:id>/download",methods = ["GET","POST"])
+def download(id):
+    if id not in allowedID:
+        return redirect("/")
+    LGBM = modelDict[id][1]
+    df = LGBM.predDF
+    csv = df.to_csv(index=False)
+
+    response = make_response(csv)
+    cd = 'attachment; filename=data.csv'
+    response.headers['Content-Disposition'] = cd 
+    response.mimetype='text/csv'
+    return response
+
+@app.route("/<string:id>/predict",methods = ["GET","POST"])
+def predict(id):
+    if id not in allowedID:
+        return redirect("/")
+    if request.method == "GET":
+        LGBM = modelDict[id][1]
+        LGBM.predict(LGBM.trainData)
+        return redirect("/")
+
 
 
 

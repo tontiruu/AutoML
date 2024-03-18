@@ -23,7 +23,8 @@ class model_lightgbm:
                     
                     le=LabelEncoder()
                     df[colum]=le.fit_transform(df[colum])
-
+                
+            self.trainData = df
             y = df[target]
             x = df.drop([target], axis=1)
 
@@ -88,12 +89,15 @@ class model_lightgbm:
     
     def predict(self,pred_df):
 
-        if self.taarget in pred_df.columns:
+        if self.target in pred_df.columns:
             pred_df = pred_df.drop([self.target], axis=1)#targetがあるなら落とす
         pred = self.model.predict(pred_df)#モデルを使って予測
-        pred_df['target'] = pred#予測データをpred_dfに入れる
-
-        return pred_df
+        pred = np.argmax(pred,axis=1)
+        pred_df[self.target] = pred#予測データをpred_dfに入れる
+        pred_df[self.target] = self.le_target.inverse_transform(pred_df[self.target])
+        self.pred_df = pred_df
+        print(self.pred_df)
+        
 
 
 
