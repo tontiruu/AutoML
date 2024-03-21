@@ -92,7 +92,7 @@ def download(id):
     if id not in allowedID:
         return redirect("/")
     LGBM = modelDict[id][1]
-    df = LGBM.predDF
+    df = LGBM.pred_df
     csv = df.to_csv(index=False)
 
     response = make_response(csv)
@@ -108,7 +108,7 @@ def predict(id):
     if request.method == "GET":
         LGBM = modelDict[id][1]
         LGBM.predict(LGBM.trainData)
-        return redirect("/")
+        return render_template("result.html",id = id)
 
 
 
