@@ -12,7 +12,7 @@ class model_lightgbm:
         #CはClassificationの略
         self.analytic_type=analytic_type
         self.target=target
-
+        self.labelencoders = {}
         if analytic_type == "C":
             self.le_target = LabelEncoder()
             df[self.target] = self.le_target.fit_transform(df[self.target])
@@ -24,6 +24,7 @@ class model_lightgbm:
                     
                     le=LabelEncoder()
                     df[colum]=le.fit_transform(df[colum])
+                    self.labelencoders[colum] = le
                 
             self.trainData = df
             y = df[target]
@@ -61,6 +62,9 @@ class model_lightgbm:
             
             #モデルの予測
             y_pred = self.model.predict(x_test)
+
+            
+
             #そのクラスに属する確率が返ってくるから、最も高い確率のクラスに加工する
             y_pred = np.argmax(y_pred,axis=1)
             print(f"y_pred:{list(y_pred)[:30]}")
@@ -93,10 +97,17 @@ class model_lightgbm:
         if self.target in pred_df.columns:
             pred_df = pred_df.drop([self.target], axis=1)#targetがあるなら落とす
         pred = self.model.predict(pred_df)#モデルを使って予測
-        
+
+       
         pred = np.argmax(pred,axis=1)
         pred_df[self.target] = pred#予測データをpred_dfに入れる
+
+        
         pred_df[self.target] = self.le_target.inverse_transform(pred_df[self.target])
+
+        for colum in self.labelencoders.keys():
+            print(colum)
+            pred_df[colum] = self.labelencoders[colum].inverse_transform(pred_df[colum])
         self.pred_df = pred_df
         
 
