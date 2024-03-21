@@ -60,9 +60,6 @@ def choseTarget(id):
         return redirect("/")
     dfTrain = dataDictTrain[id][1]
     dfTest = dataDictTest[id][1]
-    print("!!!!!!!!!!!!!!!!!!!")
-    print(dfTest)
-    print("!!!!!!!!!!!")
     if request.method == "GET":
         columns = dfTrain.columns
         data = []
