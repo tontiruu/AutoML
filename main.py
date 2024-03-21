@@ -9,7 +9,11 @@ import math
 app = Flask(__name__,static_folder="./static")
 
 
-dataDict = {}
+dataDictTrain = {}
+# key:id
+# value:[timestamp,df]
+
+dataDictTest = {}
 # key:id
 # value:[timestamp,df]
 
@@ -23,7 +27,7 @@ allowedID = set([])
 def index():
     global allowedID
     id = createID.getID()
-    while id in dataDict.keys():
+    while id in dataDictTrain.keys():
         id = createID.getID()
     allowedID.add(id)
     if request.method == "GET":
@@ -37,13 +41,16 @@ def home(id):
     if request.method == "GET":
         return render_template("home.html")
     else:
-        global dataDict
+        global dataDictTrain, dataDictTest
         print(request.files)
-        file = request.files["CSVfile"]
+        trainFile = request.files["trainingCSVfile"]
+        testFile = request.files["testCSVfile"]
         #'.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
         
-        df = pd.read_csv(file)
-        dataDict[id] = [time.time(),df]
+        dfTrain = pd.read_csv(trainFile)
+        dataDictTrain[id] = [time.time(),dfTrain]
+        dfTest = pd.read_csv(testFile)
+        dataDictTest[id] = [time.time(),dfTest]
         return redirect(f"/{id}/choseTarget")
     
 
@@ -51,7 +58,7 @@ def home(id):
 def choseTarget(id):
     if id not in allowedID:
         return redirect("/")
-    df = dataDict[id][1]
+    df = dataDictTrain[id][1]
     if request.method == "GET":
         columns = df.columns
         data = []
