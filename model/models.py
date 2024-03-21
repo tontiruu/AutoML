@@ -8,27 +8,38 @@ from sklearn.metrics import f1_score
 
 class model_lightgbm:
 
-    def learning(self,analytic_type,target,df):
+    def learning(self,analytic_type,target,dfTrain,dfTest):
+
+        #LabelEncoderは訓練とテスト同時に処理する
+        dfAll = pd.concat([dfTrain,dfTest])
+
+
         #CはClassificationの略
         self.analytic_type=analytic_type
         self.target=target
         self.labelencoders = {}
         if analytic_type == "C":
             self.le_target = LabelEncoder()
-            df[self.target] = self.le_target.fit_transform(df[self.target])
+            self.le_target.fit(dfAll[self.target])
+            dfTrain[self.target] = self.le_target.transform(dfTrain[self.target])
+            if self.target in dfTest.columns:
+                dfTest[self.target] = self.le_target.transform(dfTest[self.target])
             
             #文字データの判定
-            for colum in (df.columns):
-                if df[colum].dtype not in ["int64","float64"]:
+            for colum in (dfAll.columns):
+                if dfAll[colum].dtype not in ["int64","float64"]:
                 #ラベルエンコーディング
                     
                     le=LabelEncoder()
-                    df[colum]=le.fit_transform(df[colum])
+                    le.fit(dfAll[colum])
+                    dfTrain[colum]=le.transform(dfTrain[colum])
+                    dfTest[colum] = le.transform(dfTest[colum])
                     self.labelencoders[colum] = le
                 
-            self.trainData = df
-            y = df[target]
-            x = df.drop([target], axis=1)
+            self.trainData = dfTrain
+            self.testData = dfTest
+            y = dfTrain[target]
+            x = dfTrain.drop([target], axis=1)
 
             x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state=0)
 
@@ -67,8 +78,6 @@ class model_lightgbm:
 
             #そのクラスに属する確率が返ってくるから、最も高い確率のクラスに加工する
             y_pred = np.argmax(y_pred,axis=1)
-            print(f"y_pred:{list(y_pred)[:30]}")
-            print(f"y_test:{list(y_test)[:30]}")
             self.accuracy = metrics.accuracy_score(y_test,y_pred )
             
             imp = list(self.model.feature_importance())
@@ -92,7 +101,9 @@ class model_lightgbm:
 
 
     
-    def predict(self,pred_df):
+    def predict(self):
+        pred_df = self.testData
+
 
         if self.target in pred_df.columns:
             pred_df = pred_df.drop([self.target], axis=1)#targetがあるなら落とす
@@ -106,7 +117,6 @@ class model_lightgbm:
         pred_df[self.target] = self.le_target.inverse_transform(pred_df[self.target])
 
         for colum in self.labelencoders.keys():
-            print(colum)
             pred_df[colum] = self.labelencoders[colum].inverse_transform(pred_df[colum])
         self.pred_df = pred_df
         
