@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from sklearn import metrics
 from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import f1_score
 
 class model_lightgbm:
 
@@ -92,11 +93,11 @@ class model_lightgbm:
         if self.target in pred_df.columns:
             pred_df = pred_df.drop([self.target], axis=1)#targetがあるなら落とす
         pred = self.model.predict(pred_df)#モデルを使って予測
+        
         pred = np.argmax(pred,axis=1)
         pred_df[self.target] = pred#予測データをpred_dfに入れる
         pred_df[self.target] = self.le_target.inverse_transform(pred_df[self.target])
         self.pred_df = pred_df
-        print(self.pred_df)
         
 
 

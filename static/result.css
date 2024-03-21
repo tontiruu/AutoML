@@ -49,3 +49,8 @@
   border-radius: 100vh;
   transition: 0.5s;
 }
+
+.btn_03 :hover {
+  background-color: #6e6e6e;
+  color:white;
+}
