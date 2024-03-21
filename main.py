@@ -58,12 +58,16 @@ def home(id):
 def choseTarget(id):
     if id not in allowedID:
         return redirect("/")
-    df = dataDictTrain[id][1]
+    dfTrain = dataDictTrain[id][1]
+    dfTest = dataDictTest[id][1]
+    print("!!!!!!!!!!!!!!!!!!!")
+    print(dfTest)
+    print("!!!!!!!!!!!")
     if request.method == "GET":
-        columns = df.columns
+        columns = dfTrain.columns
         data = []
-        for i in range(len(df)):
-            data.append(list(df.iloc[i]))
+        for i in range(len(dfTrain)):
+            data.append(list(dfTrain.iloc[i]))
         return render_template("choseTarget.html",columns=columns,data=data)
     else:
         #checkedItem = request.form.getlist("checkbox")
@@ -77,7 +81,7 @@ def choseTarget(id):
             analyticType = "L"
 
         LGBM = model_lightgbm()
-        LGBM.learning(analytic_type="C",target=target,df = df)
+        LGBM.learning(analytic_type="C",target=target,dfTrain = dfTrain,dfTest=dfTest)
         modelDict[id] = [time.time(),LGBM]
         return redirect(f"/{id}/score")
 
@@ -112,9 +116,10 @@ def download(id):
 def predict(id):
     if id not in allowedID:
         return redirect("/")
+    dfTest = dataDictTest[id][1]
     if request.method == "GET":
         LGBM = modelDict[id][1]
-        LGBM.predict(LGBM.trainData)
+        LGBM.predict()
         return render_template("result.html",id = id)
 
 
