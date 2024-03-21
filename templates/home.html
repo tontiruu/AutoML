@@ -101,22 +101,30 @@
     document
       .getElementById("training-data-file")
       .addEventListener("change", function () {
-        document.getElementById("file-form").submit();
+        var fileTrain = document.getElementById("training-data-file");
+        var fileTest = document.getElementById("test-data-file");
+        if(fileTrain.value != "" && fileTest.value != ""){
+          document.getElementById("file-form").submit();
+        }
       });
     document
       .getElementById("test-data-file")
       .addEventListener("change", function () {
-        document.getElementById("file-form").submit();
+        var fileTrain = document.getElementById("training-data-file");
+        var fileTest = document.getElementById("test-data-file");
+        if(fileTrain.value != "" && fileTest.value != ""){
+          document.getElementById("file-form").submit();
+        }
       });
     document
       .getElementById("training-data-file")
-      .addEventListener("click", function () {
+      .addEventListener("load", function () {
         var file = document.getElementById("training-data-file");
         file.value = "";
       });
     document
       .getElementById("test-data-file")
-      .addEventListener("click", function () {
+      .addEventListener("load", function () {
         var file = document.getElementById("test-data-file");
         file.value = "";
       });
