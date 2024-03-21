@@ -32,6 +32,8 @@
     padding:0px 40px;
   }
   
+  
+
   .changer{
     font-size:1em;
   }
@@ -44,18 +46,20 @@
   
   table {
     border-collapse:separate;
-    border-spacing:1px;
+    border-spacing:0px;
     border-radius:10px;
     border-top: 1px solid #000000;
     border-left: 1px solid #000000;
   }
 
   table th,td{
+    background-color: #fce2c4;
     border-right: 1px solid #000000;
     border-bottom: 1px solid #000000;
+    opacity:0.7;
   }
 
-  table tr:first-child th:last-child {
+  table tr:first-child th:first-child {
     border-radius: 10px 0 0 0;
   }
   table tr:first-child th:last-child {

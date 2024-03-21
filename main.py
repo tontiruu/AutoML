@@ -53,7 +53,7 @@ def choseTarget(id):
         data = []
         for i in range(len(df)):
             data.append(list(df.iloc[i]))
-        return render_template("chooseColumn.html", columns=columns, data=data)
+        return render_template("chooseColumn.html", columns=list(columns), data=data)
     else:
         checkedItem = request.form.getlist("checkbox")
         df = df[checkedItem]

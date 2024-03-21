@@ -10,14 +10,12 @@ margin-right: auto;
 margin-top: 100px; 
 text-align: center;
 color:#292929;">
-
 <script>
     window.addEventListener("DOMContentLoaded",function(){
         const changer=document.querySelector(".changer");
         while (changer.scrollWidth>120){
             const fontSize=parseFloat(window.getComputedStyle(changer).fontSize);
-            console.log(fontSize);
-            if(fontSize<6.8){
+              if(fontSize<6.8){
                 break;
             }
             changer.style.fontSize=(fontSize-0.1)+"px";
@@ -39,14 +37,15 @@ color:#292929;">
             
             <tr>
               {% for title in columns %}
-              <th>{{title}}</th>
+              <th class="{{title}}">{{title}}</th>
               {% endfor %}
             </tr>
       
-            {% for columnData in data[:10] %}
+
+            {% for i in range(data.__len__()) %}
             <tr>
-              {% for d in columnData %}
-              <td>{{d}}</td>
+              {% for j in range(data[i].__len__()) %}
+              <td class="{{columns[j]}}">{{data[i][j]}}</td>
               {% endfor %}
             </tr>
             {% endfor %}
@@ -66,7 +65,7 @@ color:#292929;">
       >
         <div class="flex items-center ps-3">
           <input
-            id="vue-checkbox"
+            id="vue-checkbox{{title}}"
             type="checkbox"
             value={{title}}
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
@@ -88,7 +87,49 @@ color:#292929;">
         </button>
       </div>
 
-
+  <script>
+  var columns_name={{columns|tojson}};
+  function valueChange(){
+    var i=0;
+    console.log(i);
+    while(i<checkboxes.length){
+      if(checkboxes[i].checked==isenable[i]){
+        i++;
+        continue;
+      }
+      isenable[i]=checkboxes[i].checked;
+      if(checkboxes[i].checked){
+        var elements = document.getElementsByClassName(columns_name[i]);
+        for(var j=0;j<elements.length;j++){
+          console.log(columns_name[i]);
+          elements[j].style.backgroundColor = "#ffcc99";
+        }
+      }else{
+        var elements = document.getElementsByClassName(columns_name[i]);
+        for(var j=0;j<elements.length;j++){
+          console.log(columns_name[i]);
+          elements[j].style.backgroundColor = "#fce2c4";
+        }
+      }
+      i++;
+    }
+  };
+  var checkboxes=[]
+    var i=0;
+    isenable=[]
+    for(var i;i<=columns_name.length;i++){
+      isenable.push(false);
+    }
+    var i=0;
+    while(i<columns_name.length){
+      let saveCheckbox=document.getElementById("vue-checkbox"+columns_name[i]);
+      console.log("!vue-checkbox"+columns_name[i]);
+      saveCheckbox.addEventListener("change",valueChange);
+      checkboxes.push(saveCheckbox);
+      i++;
+      console.log(i);
+    }
+  </script>
   </body>
 </html>
 
