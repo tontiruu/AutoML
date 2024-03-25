@@ -94,55 +94,33 @@
       </div> 
     </div> 
   </form> 
-  </label> 
-  <!-- 訓練データファイルの入力後に表示されるメッセージ -->
-  <div id="messages-container" style="display: flex; align-items: start; justify-content: space-around; width: 100%; margin-top: 20px;">
-    <div id="training-data-message" style="display:none; padding-left: 100px; font-size: 30px; font-weight: bold;">
-      訓練データを挿入しました
-    </div>
-    <div id="test-data-message" style="display:none; padding-left: 300px; font-size: 30px; font-weight: bold;">
-      テストデータを挿入しました
-    </div>
-  </div>  
+  </label>  
   <script>
-    document 
-      .getElementById("training-data-file") 
-      .addEventListener("change", function () { 
-        var fileTrain = document.getElementById("training-data-file"); 
-        var fileTest = document.getElementById("test-data-file"); 
-        var messageDiv = document.getElementById("training-data-message");
-        if (fileTrain.value != "" && fileTest.value != "") { 
-          document.getElementById("file-form").submit(); 
-        } 
-        if (fileTrain.value != "") {
-          messageDiv.style.display = 'block';
-        }
-      }); 
-    document 
-      .getElementById("test-data-file") 
-      .addEventListener("change", function () { 
-        var fileTrain = document.getElementById("training-data-file"); 
-        var fileTest = document.getElementById("test-data-file"); 
-        var messageDivTest = document.getElementById("test-data-message");
-        if (fileTrain.value != "" && fileTest.value != "") { 
-          document.getElementById("file-form").submit(); 
-        } 
-        if (fileTest.value != "") {
-          messageDivTest.style.display = 'block';
-        }
-      }); 
-    document 
-      .getElementById("training-data-file") 
-      .addEventListener("load", function () { 
-        var file = document.getElementById("training-data-file"); 
-        file.value = ""; 
-      }); 
-    document 
-      .getElementById("test-data-file") 
-      .addEventListener("load", function () { 
-        var file = document.getElementById("test-data-file"); 
-        file.value = ""; 
-      }); 
+    document.getElementById("training-data-file").addEventListener("change", function () { 
+    var fileTrain = document.getElementById("training-data-file"); 
+    var fileTest = document.getElementById("test-data-file"); 
+    if (fileTrain.value != "") { 
+      // 訓練データが選択されたら、テキストを変更する
+      document.querySelector(".training-data h3").textContent = "挿入されました";
+    }
+    if (fileTrain.value != "" && fileTest.value != "") { 
+      // 両方のファイルが選択されている場合、フォームを送信
+      document.getElementById("file-form").submit(); 
+    }
+  }); 
+
+  document.getElementById("test-data-file").addEventListener("change", function () { 
+    var fileTrain = document.getElementById("training-data-file"); 
+    var fileTest = document.getElementById("test-data-file"); 
+    if (fileTest.value != "") { 
+      // テストデータが選択されたら、テキストを変更する
+      document.querySelector(".test-data h3").textContent = "挿入されました";
+    }
+    if (fileTrain.value != "" && fileTest.value != "") { 
+      // 両方のファイルが選択されている場合、フォームを送信
+      document.getElementById("file-form").submit(); 
+    }
+  });
   </script> 
 </body> 
-{% endblock %} 
+{% endblock %}
