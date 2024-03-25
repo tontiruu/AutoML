@@ -47,10 +47,13 @@ def home(id):
         testFile = request.files["testCSVfile"]
         #'.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
         
-        dfTrain = pd.read_csv(trainFile)
-        dataDictTrain[id] = [time.time(),dfTrain]
-        dfTest = pd.read_csv(testFile)
-        dataDictTest[id] = [time.time(),dfTest]
+        try:
+            dfTrain = pd.read_csv(trainFile)
+            dataDictTrain[id] = [time.time(),dfTrain]
+            dfTest = pd.read_csv(testFile)
+            dataDictTest[id] = [time.time(),dfTest]
+        except:
+            return render_template("error.html", error_message="そのファイルは使用できません", return_page=f"/{id}/home")
         return redirect(f"/{id}/choseTarget")
     
 
@@ -123,4 +126,4 @@ def predict(id):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
