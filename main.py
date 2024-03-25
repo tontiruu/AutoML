@@ -54,6 +54,16 @@ def home(id):
             dataDictTest[id] = [time.time(),dfTest]
         except:
             return render_template("error.html", error_message="そのファイルは使用できません", return_page=f"/{id}/home")
+        
+        train_column=dfTrain.columns
+        print(train_column)
+        test_column=dfTest.columns
+        print(test_column)
+
+        
+
+
+
         return redirect(f"/{id}/choseTarget")
     
 
