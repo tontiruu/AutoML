@@ -13,7 +13,6 @@
 .btn_04 {
   display: block;
   text-align: center;
-  vertical-align: middle;
   text-decoration: none;
   width: 500px;
   margin: auto;
@@ -65,4 +64,10 @@
 .next-button:hover {
   color: #7ea9ea;
   background: #fff;
+}
+
+.flex{
+  display: flex;
+  width:2px;
+  border: 1px solid #95b41a;
 }

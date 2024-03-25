@@ -1,0 +1,73 @@
+.btn_04 {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    width: 500px;
+    margin: auto;
+    padding: 1rem 4rem;
+    font-weight: bold;
+    border: 2px solid #7ea9ea;
+    background: #7ea9ea;
+    color: #fff;
+    border-radius: 100vh;
+    transition: 0.5s;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 1rem;
+  }
+
+  .scroll {
+    width: 300px;
+    height: 300px;
+    overflow: scroll;
+    
+  }
+
+  .scroll2{
+    width: 300px;
+    height: 320px;
+    overflow: scroll;
+    overflow-x: hidden; overflow-y: scroll;
+    padding:0px 40px;
+  }
+  
+  
+
+  .changer{
+    font-size:1em;
+  }
+
+  .flex{
+    display: flex;
+    justify-content:space-around;
+    align-items:center;
+  }
+  
+  table {
+    border-collapse:separate;
+    border-spacing:0px;
+    border-radius:10px;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+  }
+
+  table th,td{
+    background-color: #b2d1ff;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    opacity:0.7;
+  }
+
+  table tr:first-child th:first-child {
+    border-radius: 10px 0 0 0;
+  }
+  table tr:first-child th:last-child {
+    border-radius: 0 10px 0 0;
+  }
+  table tr:last-child td:first-child {
+    border-radius: 0 0 0 10px;
+  }
+  table tr:last-child td:last-child {
+    border-radius: 0 0 10px 0;
+  }
