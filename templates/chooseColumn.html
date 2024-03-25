@@ -69,7 +69,7 @@ color:#292929;">
             type="checkbox"
             value={{title}}
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-            name="checkbox"
+            name="checkbox" checked
             />
           <label
             for="vue-checkbox"
@@ -91,7 +91,6 @@ color:#292929;">
   var columns_name={{columns|tojson}};
   function valueChange(){
     var i=0;
-    console.log(i);
     while(i<checkboxes.length){
       if(checkboxes[i].checked==isenable[i]){
         i++;
@@ -101,14 +100,12 @@ color:#292929;">
       if(checkboxes[i].checked){
         var elements = document.getElementsByClassName(columns_name[i]);
         for(var j=0;j<elements.length;j++){
-          console.log(columns_name[i]);
-          elements[j].style.backgroundColor = "#ffcc99";
+          elements[j].style.backgroundColor = "#b2d1ff";
         }
       }else{
         var elements = document.getElementsByClassName(columns_name[i]);
         for(var j=0;j<elements.length;j++){
-          console.log(columns_name[i]);
-          elements[j].style.backgroundColor = "#fce2c4";
+          elements[j].style.backgroundColor = "#bbbbbb";
         }
       }
       i++;
@@ -118,16 +115,14 @@ color:#292929;">
     var i=0;
     isenable=[]
     for(var i;i<=columns_name.length;i++){
-      isenable.push(false);
+      isenable.push(true);
     }
     var i=0;
     while(i<columns_name.length){
       let saveCheckbox=document.getElementById("vue-checkbox"+columns_name[i]);
-      console.log("!vue-checkbox"+columns_name[i]);
       saveCheckbox.addEventListener("change",valueChange);
       checkboxes.push(saveCheckbox);
       i++;
-      console.log(i);
     }
   </script>
   </body>
