@@ -161,8 +161,13 @@ def predict(id):
         LGBM.predict()
         return render_template("result.html",id = id)
 
-
-
+@app.route("/terms_of_use",methods = ["GET","POST"])
+def terms_of_use():
+    if request.method == "GET":
+        return render_template("terms_of_use.html")
+    else:
+        print('!')
+        return redirect("/")
 
 if __name__ == '__main__':
     app.run(debug=True)

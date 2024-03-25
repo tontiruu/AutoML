@@ -1,0 +1,28 @@
+.square{
+    background-color: #d9e8ff;
+    text-align:left;
+    padding:30px;
+    border-radius:50px;
+}
+
+.square2{
+    text-align:left;
+}
+
+.btn_04 {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    width: 500px;
+    margin: auto;
+    padding: 1rem 4rem;
+    font-weight: bold;
+    border: 2px solid #7ea9ea;
+    background: #7ea9ea;
+    color: #fff;
+    border-radius: 100vh;
+    transition: 0.5s;
+    right: 0;
+    bottom: 0;
+    margin: 1rem;
+  }
