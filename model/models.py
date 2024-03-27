@@ -56,13 +56,13 @@ class model_lightgbm:
                 'objective': 'multiclass', # binaly:二値分類, multiclass:多クラス分類
                 "num_class":len(set(y)),
                 'metric': {'auc_mu'},
-                'num_leaves': 20,
-                'max_depth':5,
-                'min_data_in_leaf': 3,
-                'num_iteration': 100,
-                'learning_rate':0.03,
-                'num_boost_round':100,
-                'early_stopping_rounds':20,
+                #'num_leaves': 20,
+                #'max_depth':5,
+                #'min_data_in_leaf': 3,
+                #'num_iteration': 100,
+                #'learning_rate':0.03,
+                #'num_boost_round':100,
+                #'early_stopping_rounds':20,
             }
             self.model = lgb.train(
                 params,
