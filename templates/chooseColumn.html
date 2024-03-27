@@ -64,6 +64,7 @@ color:#292929;">
         class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600"
       >
         <div class="flex items-center ps-3">
+          {% if title!=target %}
           <input
             id="vue-checkbox{{title}}"
             type="checkbox"
@@ -71,11 +72,12 @@ color:#292929;">
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
             name="checkbox" checked
             />
+          {% endif %}
           <label
             for="vue-checkbox"
             class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            ><div class="changer">{{title}}</div></label
-          >
+            ><div class="changer">{{title}}</div></label>
+          
         </div>
       </li>
     </ul>
@@ -89,9 +91,14 @@ color:#292929;">
 
   <script>
   var columns_name={{columns|tojson}};
+  var target={{target|tojson}}
   function valueChange(){
     var i=0;
     while(i<checkboxes.length){
+      if(columns_name[i]==target){
+        i++;
+        continue;
+      }
       if(checkboxes[i].checked==isenable[i]){
         i++;
         continue;
@@ -119,6 +126,11 @@ color:#292929;">
     }
     var i=0;
     while(i<columns_name.length){
+      if(columns_name[i]==target){
+        checkboxes.push(1);
+        i++;
+        continue;
+      }
       let saveCheckbox=document.getElementById("vue-checkbox"+columns_name[i]);
       saveCheckbox.addEventListener("change",valueChange);
       checkboxes.push(saveCheckbox);

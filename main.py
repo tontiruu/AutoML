@@ -108,12 +108,13 @@ def chooseColumns(id):
         data = []
         for i in range(min(30,len(dfTrain))):
             data.append(list(dfTrain.iloc[i]))
-        return render_template("chooseColumn.html",columns=columns,data=data)
+        return render_template("chooseColumn.html",columns=columns,data=data,target=targetDict[id])
     else:
         #checkedItem = request.form.getlist("checkbox")
         #df = df[checkedItem]
         use_list=request.form.getlist("checkbox")
         use_set=set(use_list)
+        use_set.add(targetDict[id])
         columns=list(dfTrain.columns)
         for column_name in columns:
             if column_name not in use_set:
