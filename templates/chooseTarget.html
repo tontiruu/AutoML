@@ -1,6 +1,9 @@
 {% extends "base.html"%}
 {% block content %}
 <link rel="stylesheet" href="../static/chooseTarget.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../static/modal.css">
+<script src="../static/modal.js"></script>
 <form action="" method="POST" enctype="multipart/form-data" id="file-form"
 style="
 width:70%;
@@ -32,6 +35,24 @@ color:#292929;">
       <option value="分類">分類</option>
     </select>
     
+    
+    <div class="modal">
+      <div class="modalBtn">
+        <p>i</p>
+      </div><!-- /.modalBtn -->
+      <div class="modalBg">
+        <div class="modalArea">
+          <div class="modalClose"></div><!-- /.modalClose -->
+          <h2>回帰</h2>
+          <p><h5>回帰とは、連続値を用いて別の数値を予測する手法です。</h5></p>
+          <p><h5>例えば、広告費によって商品の売上が増加する様子を、過去の広告費・売上データを基に予測します。<br><br></h5></p>
+          <br><br>
+          <h2>分類</h2>
+          <p><h5>分類とは、分析したいデータがどのグループに属するかを判定する手法です。</h5></p>
+          <p><h5>例えば、顧客の購買データを基にその顧客が新商品を買うかを否かを予測します。<br><br></h5></p>
+        </div><!-- /.modalArea -->
+      </div><!-- /.modalBg -->
+    </div><!-- /.modal -->
 
 
     <h5>データのプレビュー</h5>
@@ -61,6 +82,7 @@ color:#292929;">
 
      
 <button class="next-button">次へ</button>
+
 
 
 

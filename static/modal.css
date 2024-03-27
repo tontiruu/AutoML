@@ -1,0 +1,88 @@
+/* リセットCSS */
+body,div,p {
+    margin: 0;
+}
+.modal {
+    display: inline;
+    position: relative;
+    padding: 50px 0;
+}
+/* モーダルボタン */
+.modalBtn {
+    display: inline-block;
+    width: 50px;
+    margin: 0 auto;
+    height: 50px;
+    line-height: 50px;
+    background-color: #7EA9EA;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.modalBtn p {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+}
+/* モーダル背景 */
+.modalBg {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .8);
+    padding: 40px 0;
+}
+/* モーダル内コンテンツ */
+.modalArea {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    width: 80%;
+}
+.modalContent p {
+    font-size: 16px;
+    color: #222;
+    line-height: 1.5;
+    letter-spacing: .06em;
+}
+/* 閉じるボタン */
+.modalClose {
+    position: relative;
+    background-color: #7EA9EA;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    margin: 0 0 40px auto;
+    cursor: pointer;
+}
+.modalClose::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotate(45deg);
+    background-color: #fff;
+    border-radius: 50px;
+    width: 2px;
+    height: 20px;
+}
+.modalClose::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotate(-45deg);
+    background-color: #fff;
+    border-radius: 50px;
+    width: 2px;
+    height: 20px;
+}
