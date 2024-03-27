@@ -27,7 +27,7 @@ class model_lightgbm:
             
             #文字データの判定
             for colum in (dfAll.columns):
-                if dfAll[colum].dtype not in ["int64","float64"]:
+                if dfAll[colum].dtype not in ["int64","float64"] and colum != self.target:
                 #ラベルエンコーディング
                     
                     le=LabelEncoder()
