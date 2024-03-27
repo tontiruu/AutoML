@@ -80,7 +80,7 @@ def chooseTarget(id):
     if request.method == "GET":
         columns = dfTrain.columns
         data = []
-        for i in range(len(dfTrain)):
+        for i in range(min(30,len(dfTrain))):
             data.append(list(dfTrain.iloc[i]))
         return render_template("chooseTarget.html",columns=columns,data=data)
     else:
@@ -106,7 +106,7 @@ def chooseColumns(id):
     if request.method == "GET":
         columns = list(dfTrain.columns)
         data = []
-        for i in range(len(dfTrain)):
+        for i in range(min(30,len(dfTrain))):
             data.append(list(dfTrain.iloc[i]))
         return render_template("chooseColumn.html",columns=columns,data=data)
     else:
