@@ -3,16 +3,18 @@ body,div,p {
     margin: 0;
 }
 .modal {
+    display: inline;
     position: relative;
     padding: 50px 0;
 }
 /* モーダルボタン */
 .modalBtn {
-    width: 300px;
+    display: inline-block;
+    width: 50px;
     margin: 0 auto;
     height: 50px;
     line-height: 50px;
-    background-color: #db2e73;
+    background-color: #7EA9EA;
     border-radius: 50px;
     cursor: pointer;
 }
@@ -25,10 +27,12 @@ body,div,p {
 /* モーダル背景 */
 .modalBg {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, .8);
     padding: 40px 0;
@@ -53,7 +57,7 @@ body,div,p {
 /* 閉じるボタン */
 .modalClose {
     position: relative;
-    background-color: #222;
+    background-color: #7EA9EA;
     border-radius: 50px;
     width: 40px;
     height: 40px;
