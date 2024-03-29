@@ -132,7 +132,7 @@ def score(id):
         return redirect("/")
     if request.method == "GET":
         LGBM = modelDict[id][1]
-        return render_template("score.html",accuracy = LGBM.accuracy, accpct = math.floor(LGBM.accuracy*100),imp=LGBM.imp,columns = LGBM.columns)
+        return render_template("score.html",accuracy = LGBM.accuracy, accpct = math.floor(LGBM.accuracy*100),imp=LGBM.imp,columns = LGBM.columns,id =id)
     else:
         pass
 
