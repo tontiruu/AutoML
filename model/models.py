@@ -32,6 +32,8 @@ class model_lightgbm:
                     
                     le=LabelEncoder()
                     le.fit(dfAll[colum])
+                    dfTrain[colum].fillna("None")
+                    dfTest[colum].fillna("None")
                     dfTrain[colum]=le.transform(dfTrain[colum])
                     dfTest[colum] = le.transform(dfTest[colum])
                     self.labelencoders[colum] = le
