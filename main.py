@@ -21,6 +21,10 @@ modelDict = {}
 #key:id
 #value:[timestamp,imp,x_columns]
 
+targetDict={}
+#key:id
+#value:target
+
 allowedID = set([])
 
 @app.route("/",methods=["POST","GET"])
@@ -47,15 +51,28 @@ def home(id):
         testFile = request.files["testCSVfile"]
         #'.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
         
-        dfTrain = pd.read_csv(trainFile)
-        dataDictTrain[id] = [time.time(),dfTrain]
-        dfTest = pd.read_csv(testFile)
-        dataDictTest[id] = [time.time(),dfTest]
-        return redirect(f"/{id}/choseTarget")
+        try:
+            dfTrain = pd.read_csv(trainFile)
+            dataDictTrain[id] = [time.time(),dfTrain]
+            dfTest = pd.read_csv(testFile)
+            dataDictTest[id] = [time.time(),dfTest]
+        except:
+            return render_template("error.html", error_message="そのファイルは使用できません", return_page=f"/{id}/home")
+        
+        train_column=dfTrain.columns
+        print(train_column)
+        test_column=dfTest.columns
+        print(test_column)
+
+        
+
+
+
+        return redirect(f"/{id}/chooseTarget")
     
 
-@app.route("/<string:id>/choseTarget",methods = ["GET","POST"])
-def choseTarget(id):
+@app.route("/<string:id>/chooseTarget",methods = ["GET","POST"])
+def chooseTarget(id):
     if id not in allowedID:
         return redirect("/")
     dfTrain = dataDictTrain[id][1]
@@ -65,7 +82,7 @@ def choseTarget(id):
         data = []
         for i in range(len(dfTrain)):
             data.append(list(dfTrain.iloc[i]))
-        return render_template("choseTarget.html",columns=columns,data=data)
+        return render_template("chooseTarget.html",columns=columns,data=data)
     else:
         #checkedItem = request.form.getlist("checkbox")
         #df = df[checkedItem]
@@ -76,12 +93,37 @@ def choseTarget(id):
             analyticType = "C"
         else:
             analyticType = "L"
+        targetDict[id]=target
+        return redirect(f"/{id}/chooseColumns")
 
+
+@app.route("/<string:id>/chooseColumns",methods=["GET","POST"])
+def chooseColumns(id):
+    if id not in allowedID:
+        return redirect("/")
+    dfTrain = dataDictTrain[id][1]
+    dfTest = dataDictTest[id][1]
+    if request.method == "GET":
+        columns = list(dfTrain.columns)
+        data = []
+        for i in range(len(dfTrain)):
+            data.append(list(dfTrain.iloc[i]))
+        return render_template("chooseColumn.html",columns=columns,data=data)
+    else:
+        #checkedItem = request.form.getlist("checkbox")
+        #df = df[checkedItem]
+        use_list=request.form.getlist("checkbox")
+        use_set=set(use_list)
+        columns=list(dfTrain.columns)
+        for column_name in columns:
+            if column_name not in use_set:
+                dfTrain=dfTrain.drop(column_name,axis=1)
+                dfTest=dfTest.drop(column_name,axis=1)
+        #モデルの学習。
         LGBM = model_lightgbm()
-        LGBM.learning(analytic_type="C",target=target,dfTrain = dfTrain,dfTest=dfTest)
+        LGBM.learning(analytic_type="C",target=targetDict[id],dfTrain = dfTrain,dfTest=dfTest)
         modelDict[id] = [time.time(),LGBM]
         return redirect(f"/{id}/score")
-
 
 @app.route("/<string:id>/score",methods=["GET","POST"])
 def score(id):
@@ -123,4 +165,4 @@ def predict(id):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

@@ -1,0 +1,132 @@
+{% extends "base.html"%}
+{% block content %}
+<link rel="stylesheet" href="../static/chooseColumns.css">
+<form action="" method="POST" enctype="multipart/form-data" id="file-form"
+style="
+width:70%;
+height: 90%;
+margin-left: auto;
+margin-right: auto;
+margin-top: 100px; 
+text-align: center;
+color:#292929;">
+<script>
+    window.addEventListener("DOMContentLoaded",function(){
+        const changer=document.querySelector(".changer");
+        while (changer.scrollWidth>120){
+            const fontSize=parseFloat(window.getComputedStyle(changer).fontSize);
+              if(fontSize<6.8){
+                break;
+            }
+            changer.style.fontSize=(fontSize-0.1)+"px";
+        }
+    });
+</script>
+    
+
+    <h1>使用する列の選択</h1>
+
+    
+      <div class="flex">
+      <div>
+      <h5>データのプレビュー</h5>
+
+      
+        <div class="scroll">
+          <table>
+            
+            <tr>
+              {% for title in columns %}
+              <th class="{{title}}">{{title}}</th>
+              {% endfor %}
+            </tr>
+      
+
+            {% for i in range(data.__len__()) %}
+            <tr>
+              {% for j in range(data[i].__len__()) %}
+              <td class="{{columns[j]}}">{{data[i][j]}}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          
+      
+          </table>
+        
+      </div>
+    </div>
+    <div class="scroll2"> 
+    {% for title in columns %}
+    <ul
+      class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+    >
+      <li
+        class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600"
+      >
+        <div class="flex items-center ps-3">
+          <input
+            id="vue-checkbox{{title}}"
+            type="checkbox"
+            value={{title}}
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+            name="checkbox" checked
+            />
+          <label
+            for="vue-checkbox"
+            class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            ><div class="changer">{{title}}</div></label
+          >
+        </div>
+      </li>
+    </ul>
+    {% endfor %}</div>
+  </div>
+  <button type="submit">
+    <div class="btn_04">
+          データを決定する  
+      </div>
+    </button>
+
+  <script>
+  var columns_name={{columns|tojson}};
+  function valueChange(){
+    var i=0;
+    while(i<checkboxes.length){
+      if(checkboxes[i].checked==isenable[i]){
+        i++;
+        continue;
+      }
+      isenable[i]=checkboxes[i].checked;
+      if(checkboxes[i].checked){
+        var elements = document.getElementsByClassName(columns_name[i]);
+        for(var j=0;j<elements.length;j++){
+          elements[j].style.backgroundColor = "#b2d1ff";
+        }
+      }else{
+        var elements = document.getElementsByClassName(columns_name[i]);
+        for(var j=0;j<elements.length;j++){
+          elements[j].style.backgroundColor = "#bbbbbb";
+        }
+      }
+      i++;
+    }
+  };
+  var checkboxes=[]
+    var i=0;
+    isenable=[]
+    for(var i;i<=columns_name.length;i++){
+      isenable.push(true);
+    }
+    var i=0;
+    while(i<columns_name.length){
+      let saveCheckbox=document.getElementById("vue-checkbox"+columns_name[i]);
+      saveCheckbox.addEventListener("change",valueChange);
+      checkboxes.push(saveCheckbox);
+      i++;
+    }
+  </script>
+  </body>
+</html>
+
+{% endblock %}
+
