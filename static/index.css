@@ -2,14 +2,18 @@
 }
 .sentence {
   color: #292929;
+  left: 50px;
   text-align: left;
 }
 .page_title {
   color: #292929;
+  left: 50px;
   text-align: left;
 }
 
 .btn_04 {
+  position: fixed;
+  bottom: 0;
   display: block;
   text-align: center;
   vertical-align: middle;
