@@ -144,7 +144,7 @@ def download(id):
         return redirect("/")
     LGBM = modelDict[id][1]
     df = LGBM.pred_df
-    csv = df.to_csv(index=False)
+    csv = df.to_csv(encoding='utf-8-sig', index=False)
 
     response = make_response(csv)
     cd = 'attachment; filename=data.csv'
