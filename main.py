@@ -93,6 +93,10 @@ def chooseTarget(id):
             analyticType = "C"
         else:
             analyticType = "L"
+
+            if dfTrain[target].dtype not in ["int64","float64"]:
+                return render_template("error.html", error_message="回帰分析では、目的変数を半角数字にしてください。", return_page=f"/{id}/chooseTarget")
+
         targetDict[id]=target
         return redirect(f"/{id}/chooseColumns")
 
