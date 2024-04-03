@@ -4,26 +4,31 @@
 <link rel="stylesheet" href="../static/score.css">
 <div style="display: flex; margin-top: 100px; margin-left: 30px;">
     <div>
-        <h3>精度</h3>
-        <h3 style="margin-left: 50px;">{{accpct}}%</h3>
-        <canvas id="pie_chart" width="400" height="320"></canvas>
-        <script>
-            let context = document.querySelector("#pie_chart").getContext('2d')
-            let accuracy = {{ accuracy | tojson }};
-            new Chart(context, {
-                type: 'doughnut',
-                data: {
-                labels: ["正解","不正解"],
-                datasets: [{
-                    backgroundColor: ["#B2D1FF","#BBBBBB"],
-                    data: [accuracy*100,(1-accuracy)*100]
-                }]
-                },
-                options: {
-                responsive: false,
-                }
-            });
-        </script>
+        {% if analyticType == "C"%}
+            <h3>精度</h3>
+            <h3 style="margin-left: 50px;">{{accpct}}%</h3>
+            <canvas id="pie_chart" width="400" height="320"></canvas>
+            <script>
+                let context = document.querySelector("#pie_chart").getContext('2d')
+                let score = {{ score | tojson }};
+                new Chart(context, {
+                    type: 'doughnut',
+                    data: {
+                    labels: ["正解","不正解"],
+                    datasets: [{
+                        backgroundColor: ["#B2D1FF","#BBBBBB"],
+                        data: [score*100,(1-score)*100]
+                    }]
+                    },
+                    options: {
+                    responsive: false,
+                    }
+                });
+            </script>
+        {% else %}
+            <h3>平均誤差</h3>
+            <p>{{score}}</p>
+        {% endif %}
     </div>
 
     <div style="margin-left: 100px; margin-top: 70px;">
