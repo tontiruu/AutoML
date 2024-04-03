@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from sklearn import metrics
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, mean_absolute_error
 
 class model_lightgbm:
 
@@ -18,35 +18,48 @@ class model_lightgbm:
         self.analytic_type=analytic_type
         self.target=target
         self.labelencoders = {}
-        if analytic_type == "C":
-            self.le_target = LabelEncoder()
+        self.le_target = LabelEncoder()
+
+        
+
+        if self.analytic_type == "C":
             self.le_target.fit(dfAll[self.target])
             dfTrain[self.target] = self.le_target.transform(dfTrain[self.target])
             if self.target in dfTest.columns:
                 dfTest[self.target] = self.le_target.transform(dfTest[self.target])
-            
-            #文字データの判定
-            for colum in (dfAll.columns):
-                if dfAll[colum].dtype not in ["int64","float64"] and colum != self.target:
-                #ラベルエンコーディング
-                    
-                    le=LabelEncoder()
-                    le.fit(dfAll[colum])
-                    dfTrain[colum].fillna("None")
-                    dfTest[colum].fillna("None")
-                    dfTrain[colum]=le.transform(dfTrain[colum])
-                    dfTest[colum] = le.transform(dfTest[colum])
-                    self.labelencoders[colum] = le
+        
+        #文字データの判定
+        for colum in (dfAll.columns):
+            if dfAll[colum].dtype not in ["int64","float64"] and colum != self.target:
+            #ラベルエンコーディング
                 
-            self.trainData = dfTrain
-            self.testData = dfTest
-            y = dfTrain[target]
-            x = dfTrain.drop([target], axis=1)
+                le=LabelEncoder()
+                le.fit(dfAll[colum])
+                dfTrain[colum].fillna("None")
+                dfTest[colum].fillna("None")
+                dfTrain[colum]=le.transform(dfTrain[colum])
+                dfTest[colum] = le.transform(dfTest[colum])
+                self.labelencoders[colum] = le
+            
+        if self.analytic_type == "L":
+            dfAll = dfAll[dfAll[self.target].notnull()]
+            dfTrain = dfTrain[dfTrain[self.target].notnull()]
+        print(dfTrain[self.target])
+        print(dfTrain[self.target].isnull().sum())
+        
+        self.trainData = dfTrain
+        self.testData = dfTest
+        y = dfTrain[target]
+        x = dfTrain.drop([target], axis=1)
 
-            x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state=0)
+        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state=0)
 
-            lgb_train = lgb.Dataset(x_train, y_train)
-            lgb_eval = lgb.Dataset(x_test, y_test, reference=lgb_train)
+        lgb_train = lgb.Dataset(x_train, y_train)
+        lgb_eval = lgb.Dataset(x_test, y_test, reference=lgb_train)
+        if analytic_type == "C":
+            
+
+            
 
 
             # モデルの学習
@@ -82,23 +95,34 @@ class model_lightgbm:
             y_pred = np.argmax(y_pred,axis=1)
             self.accuracy = metrics.accuracy_score(y_test,y_pred )
             
-            imp = list(self.model.feature_importance())
-            imp = list(map(lambda x: round(x/sum(imp) * 100),imp))
-            columns = list(x.columns)
-            data = []
-            for i,c in zip(imp,columns):
-                data.append([i,c])
-            data = sorted(data,reverse=True)
-
-            self.imp = []
-            self.columns = []
-            for d in data:
-                self.imp.append(d[0])
-                self.columns.append(d[1])
+            
         
         else:
             #回帰の処理
-            pass
+            #モデルパラメータの設定
+            params = {'metric' : 'rmse'}
+            self.model = lgb.train(params,lgb_train)
+
+            #予測の実行と書き出し
+            y_pred = self.model.predict(x_test)
+            print(y_pred)
+
+            self.MAE = mean_absolute_error(y_test,y_pred)
+            
+        imp = list(self.model.feature_importance())
+        imp = list(map(lambda x: round(x/sum(imp) * 100),imp))
+        columns = list(x.columns)
+        data = []
+        for i,c in zip(imp,columns):
+            data.append([i,c])
+        data = sorted(data,reverse=True)
+
+        self.imp = []
+        self.columns = []
+        for d in data:
+            self.imp.append(d[0])
+            self.columns.append(d[1])
+        print(self.MAE)
 
 
 
@@ -111,12 +135,12 @@ class model_lightgbm:
             pred_df = pred_df.drop([self.target], axis=1)#targetがあるなら落とす
         pred = self.model.predict(pred_df)#モデルを使って予測
 
-       
-        pred = np.argmax(pred,axis=1)
+        if self.analytic_type == "C":
+            pred = np.argmax(pred,axis=1)
         pred_df[self.target] = pred#予測データをpred_dfに入れる
 
-        
-        pred_df[self.target] = self.le_target.inverse_transform(pred_df[self.target])
+        if self.analytic_type == "C":
+            pred_df[self.target] = self.le_target.inverse_transform(pred_df[self.target])
 
         for colum in self.labelencoders.keys():
             pred_df[colum] = self.labelencoders[colum].inverse_transform(pred_df[colum])

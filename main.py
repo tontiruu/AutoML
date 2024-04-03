@@ -25,6 +25,8 @@ targetDict={}
 #key:id
 #value:target
 
+analyticDict = {}
+
 allowedID = set([])
 
 @app.route("/",methods=["POST","GET"])
@@ -93,6 +95,11 @@ def chooseTarget(id):
             analyticType = "C"
         else:
             analyticType = "L"
+
+            if dfTrain[target].dtype not in ["int64","float64"]:
+                return render_template("error.html", error_message="回帰分析では、目的変数を半角数字にしてください。", return_page=f"/{id}/chooseTarget")
+
+        analyticDict[id]=analyticType
         targetDict[id]=target
         return redirect(f"/{id}/chooseColumns")
 
@@ -122,7 +129,7 @@ def chooseColumns(id):
                 dfTest=dfTest.drop(column_name,axis=1)
         #モデルの学習。
         LGBM = model_lightgbm()
-        LGBM.learning(analytic_type="C",target=targetDict[id],dfTrain = dfTrain,dfTest=dfTest)
+        LGBM.learning(analytic_type=analyticDict[id],target=targetDict[id],dfTrain = dfTrain,dfTest=dfTest)
         modelDict[id] = [time.time(),LGBM]
         return redirect(f"/{id}/score")
 
@@ -132,7 +139,11 @@ def score(id):
         return redirect("/")
     if request.method == "GET":
         LGBM = modelDict[id][1]
-        return render_template("score.html",accuracy = LGBM.accuracy, accpct = math.floor(LGBM.accuracy*100),imp=LGBM.imp,columns = LGBM.columns,id =id)
+        if analyticDict[id] == "C":
+            score = LGBM.accuracy
+        else:
+            score = LGBM.MAE
+        return render_template("score.html",score = score, accpct = math.floor(score*100),imp=LGBM.imp,columns = LGBM.columns,id =id)
     else:
         pass
 
