@@ -19,10 +19,14 @@ class model_lightgbm:
         self.target=target
         self.labelencoders = {}
         self.le_target = LabelEncoder()
-        self.le_target.fit(dfAll[self.target])
-        dfTrain[self.target] = self.le_target.transform(dfTrain[self.target])
-        if self.target in dfTest.columns:
-            dfTest[self.target] = self.le_target.transform(dfTest[self.target])
+
+        
+
+        if self.analytic_type == "C":
+            self.le_target.fit(dfAll[self.target])
+            dfTrain[self.target] = self.le_target.transform(dfTrain[self.target])
+            if self.target in dfTest.columns:
+                dfTest[self.target] = self.le_target.transform(dfTest[self.target])
         
         #文字データの判定
         for colum in (dfAll.columns):
@@ -37,6 +41,12 @@ class model_lightgbm:
                 dfTest[colum] = le.transform(dfTest[colum])
                 self.labelencoders[colum] = le
             
+        if self.analytic_type == "L":
+            dfAll = dfAll[dfAll[self.target].notnull()]
+            dfTrain = dfTrain[dfTrain[self.target].notnull()]
+        print(dfTrain[self.target])
+        print(dfTrain[self.target].isnull().sum())
+        
         self.trainData = dfTrain
         self.testData = dfTest
         y = dfTrain[target]
