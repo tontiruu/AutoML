@@ -122,7 +122,7 @@ class model_lightgbm:
         for d in data:
             self.imp.append(d[0])
             self.columns.append(d[1])
-        print(self.MAE)
+
 
 
 
