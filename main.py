@@ -93,6 +93,8 @@ def chooseTarget(id):
         analyticType = request.form["selection"]
         if analyticType == "分類":
             analyticType = "C"
+            if len(set(list(dfTrain[target]))) > 100:
+                return render_template("error.html",error_message="この目的変数は分類には適しません",return_page=f"/{id}/chooseTarget")
         else:
             analyticType = "L"
 
