@@ -30,13 +30,10 @@
 }
 
 .scroll {
-  width: 80%; /* 画面幅の80% */
-  max-width: 800px; /* 最大幅を指定 */
-  height: 80vh; /* 画面の高さの80% */
-  max-height: 400px; /* 最大高さを指定 */
-  background-color: whitesmoke;
-  overflow: auto; /* スクロールが必要な場合に表示 */
-  border: black 1px solid;
+  width: 800px;
+  height: 300px;
+  overflow: scroll;
+  
 }
 
 .preview {
@@ -68,6 +65,42 @@
 
 .flex{
   display: flex;
-  width:2px;
-  border: 1px solid #95b41a;
+  justify-content:space-around;
+  align-items:center;
+}
+
+table {
+  border-collapse:separate;
+  border-spacing:0px;
+  border-radius:10px;
+  border-top: 1px solid #000000;
+  border-left: 1px solid #000000;
+}
+
+table th,td{
+  background-color: #ffffff;
+  border-right: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  opacity:0.7;
+}
+
+table tr:first-child th:first-child {
+  border-radius: 10px 0 0 0;
+}
+table tr:first-child th:last-child {
+  border-radius: 0 10px 0 0;
+}
+table tr:last-child td:first-child {
+  border-radius: 0 0 0 10px;
+}
+table tr:last-child td:last-child {
+  border-radius: 0 0 10px 0;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h1 {
+  font-size: 30px;
 }

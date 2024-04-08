@@ -1,24 +1,58 @@
 {% extends "base.html"%} {% block content %}
 <div class="body">
-  <p class="hello" style="display: inline">結果</p>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="80"
-    height="80"
-    fill="currentColor"
-    class="bi bi-graph-up"
-    viewBox="0 0 16 16"
-  >
-    <path
-      fill-rule="evenodd"
-      d="M0 0h1v15h15v1H0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07"
-    />
-  </svg>
-
-  <a href="/{{id}}/download"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#292929" class="bi bi-download" viewBox="0 0 16 16" >
-    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
-  </svg></a>
+  <div style="display: flex;">
+    <p class="hello" style="display: inline">結果</p>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="40"
+      height="60"
+      fill="currentColor"
+      class="bi bi-graph-up"
+      viewBox="0 0 16 16"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M0 0h1v15h15v1H0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07"
+      />
+    </svg>
+  </div>
+ 
+  <div style="width: 80%; margin-left: auto; margin-right: auto;">
+    <div style="display: flex;">
+      <div class="flex">
+        <div>
+          <div class="scroll">
+            <table>
+              
+              <tr>
+                {% for title in columns %}
+                <th>{{title}}</th>
+                {% endfor %}
+              </tr>
+      
+              {% for columnData in data %}
+              <tr>
+                {% for d in columnData %}
+                <td>{{d}}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            
+      
+            </table>
+          </div>
+        </div>
+      </div>
+      <div style="z-index: 10; margin-left: -120px; margin-top: -30px;">
+        <a href="/{{id}}/download" style="display: 100%; text-decoration: none; white-space: nowrap; color: #292929;">
+        ダウンロード
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#292929" class="bi bi-download" viewBox="0 0 16 16" style="display: inline;" >
+          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+        </svg></a>
+      </div>
+    </div>
+  </div>
   <a class="btn_04" href="/{{id}}/home">別のデータで分析</a>
   <a class="btn_03" href="/">分析を終了する</a>
   <link rel="stylesheet" href="../static/result.css" />
