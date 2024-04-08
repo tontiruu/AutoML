@@ -1,6 +1,6 @@
 {% extends "base.html"%}
 {% block content %}
-<link rel="stylesheet" href="../static/chooseTarget.css">
+<link rel="stylesheet" href="../static/choseTarget.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="../static/modal.css">
 <script src="../static/modal.js"></script>
@@ -30,7 +30,7 @@ color:#292929;">
     <h3>分析の種類を選択してください:</h3>
 
     <select name="selection" id="select">
-      <option value="">--選択してください--</option>
+      <!-- <option value="">--選択してください--</option> -->
       <option value="回帰">回帰</option>
       <option value="分類">分類</option>
     </select>
@@ -55,28 +55,30 @@ color:#292929;">
     </div><!-- /.modal -->
 
 
-    <h5>データのプレビュー</h5>
+    <!-- <h5>データのプレビュー</h5> -->
 
-<div class="preview">
-  <div class="scroll">
-    <table>
+<div class="flex">
+  <div>
+    <div class="scroll">
+      <table>
+        
+        <tr>
+          {% for title in columns %}
+          <th>{{title}}</th>
+          {% endfor %}
+        </tr>
+
+        {% for columnData in data %}
+        <tr>
+          {% for d in columnData %}
+          <td>{{d}}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
       
-      <tr>
-        {% for title in columns %}
-        <th>{{title}}</th>
-        {% endfor %}
-      </tr>
 
-      {% for columnData in data %}
-      <tr>
-        {% for d in columnData %}
-        <td>{{d}}</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-    
-
-    </table>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -102,11 +104,7 @@ color:#292929;">
           <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
       </svg>
   </div>
-  <button type="submit">
-    <div class="btn_04">
-          データを決定する  
-      </div>
-    </button>
+
 
   </body>
 </html>

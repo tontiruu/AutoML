@@ -10,12 +10,12 @@ body,div,p {
 /* モーダルボタン */
 .modalBtn {
     display: inline-block;
-    width: 50px;
+    width: 30px;
     margin: 0 auto;
-    height: 50px;
-    line-height: 50px;
+    height: 30px;
+    line-height: 30px;
     background-color: #7EA9EA;
-    border-radius: 50px;
+    border-radius: 30px;
     cursor: pointer;
 }
 .modalBtn p {

@@ -93,6 +93,8 @@ def chooseTarget(id):
         analyticType = request.form["selection"]
         if analyticType == "分類":
             analyticType = "C"
+            if len(set(list(dfTrain[target]))) > 100:
+                return render_template("error.html",error_message="この目的変数は分類には適しません",return_page=f"/{id}/chooseTarget")
         else:
             analyticType = "L"
 
@@ -171,7 +173,13 @@ def predict(id):
     if request.method == "GET":
         LGBM = modelDict[id][1]
         LGBM.predict()
-        return render_template("result.html",id = id)
+
+        pred_df = LGBM.pred_df
+        columns = pred_df.columns
+        data = []
+        for i in range(min(30,len(pred_df))):
+            data.append(list(pred_df.iloc[i]))
+        return render_template("result.html",id = id,columns=columns,data=data)
 
 @app.route("/terms_of_use",methods = ["GET","POST"])
 def terms_of_use():
@@ -182,4 +190,4 @@ def terms_of_use():
         return redirect("/")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
