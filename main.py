@@ -145,7 +145,7 @@ def score(id):
             score = LGBM.accuracy
         else:
             score = LGBM.MAE
-        return render_template("score.html",score = score, accpct = math.floor(score*100),imp=LGBM.imp,columns = LGBM.columns,id =id, analyticType=analyticDict[id])
+        return render_template("score.html",score = score, accpct = math.floor(score*100),imp=LGBM.imp,columns = LGBM.columns,id =id, analyticType=analyticDict[id] ,y_test=LGBM.y_test,y_pred=LGBM.y_pred)
     else:
         pass
 
