@@ -119,6 +119,9 @@ class model_lightgbm:
 
         self.imp = []
         self.columns = []
+
+        self.y_test = y_test
+        self.y_pred = y_pred
         for d in data:
             self.imp.append(d[0])
             self.columns.append(d[1])

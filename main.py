@@ -145,7 +145,16 @@ def score(id):
             score = LGBM.accuracy
         else:
             score = LGBM.MAE
-        return render_template("score.html",score = score, accpct = math.floor(score*100),imp=LGBM.imp,columns = LGBM.columns,id =id, analyticType=analyticDict[id] ,y_test=LGBM.y_test,y_pred=LGBM.y_pred)
+            y_test=LGBM.y_test
+            y_pred = LGBM.y_pred
+
+            #[{x:5,y:6},{x:4,y:2}]
+            data = []
+            for x,y in zip(y_test,y_pred):
+                data.append({"x":x,"y":y })
+            print(data)
+
+        return render_template("score.html",score = score, accpct = math.floor(score*100),imp=LGBM.imp,columns = LGBM.columns,id =id, analyticType=analyticDict[id] ,y_test=list(LGBM.y_test),y_pred=list(LGBM.y_pred),data_to_chart = data)
     else:
         pass
 
@@ -190,4 +199,4 @@ def terms_of_use():
         return redirect("/")
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

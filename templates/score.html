@@ -1,6 +1,7 @@
 {% extends "base.html"%}
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 <link rel="stylesheet" href="../static/score.css">
 <div style="display: flex; margin-top: 100px; margin-left: 30px;">
     <div>
@@ -28,6 +29,43 @@
         {% else %}
             <h3>平均誤差</h3>
             <p>{{score}}</p>
+
+            <!-- ここにグラフの描画処理を書く -->
+            <canvas id="canvas"> </canvas>
+            <script>
+                let data_to_chart = {{ data_to_chart | tojson }};
+                window.chartColors = {
+                red: "#FF0000",
+                blue: "#00FF00"
+                };
+
+                var color = Chart.helpers.color;
+                var scatter_data = {
+                datasets:[{
+                    label: "schatter dots",
+                    borderColor: window.chartColors.red,
+                    backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+                    pointRadius: 10,
+
+                    data: data_to_chart
+
+                }]
+                };
+
+                var ctx = document.getElementById('canvas').getContext('2d');
+                window.myScatter = Chart.Scatter(ctx, {
+                data: scatter_data,
+                option:{
+                    title: {
+                    display: true,
+                    text: "Chart.js Scatter Chart"
+                    },
+                }
+                });
+                let y_test = {{ y_test | tojson }};
+                let y_pred = {{ y_pred | tojson }};
+            </script>
+
         {% endif %}
     </div>
 
