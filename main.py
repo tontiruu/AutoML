@@ -67,7 +67,7 @@ def home(id):
         print(test_column)
 
         
-
+#hurvfr
 
 
         return redirect(f"/{id}/chooseTarget")
