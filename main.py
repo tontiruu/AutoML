@@ -189,5 +189,8 @@ def terms_of_use():
         print('!')
         return redirect("/")
 
+@app.route("/howtouse",methods=["GET"])
+def howtouse():
+    return render_template("howtouse.html")
 if __name__ == '__main__':
     app.run()
